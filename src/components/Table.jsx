@@ -28,6 +28,10 @@ function Table() {
     setActiveFilters([...activeFilters, filters]);
   };
 
+  const handleDelete = ({ target }) => {
+    setActiveFilters(activeFilters.filter((filter) => filter.column !== target.name));
+  };
+
   return (
     <>
       <input
@@ -72,6 +76,28 @@ function Table() {
       >
         Filtrar
       </button>
+      <button
+        data-testid="button-remove-filters"
+        type="button"
+        onClick={ () => setActiveFilters([]) }
+      >
+        Limpar Filtros
+
+      </button>
+      <div>
+        {activeFilters.map((filter) => (
+          <div key={ filter.column } data-testid="filter">
+            <p>{`${filter.column}: ${filter.value}`}</p>
+            <button
+              name={ filter.column }
+              type="button"
+              onClick={ (event) => handleDelete(event) }
+            >
+              X
+            </button>
+          </div>
+        ))}
+      </div>
       <table>
         <thead>
           <tr>

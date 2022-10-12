@@ -23,6 +23,10 @@ function StarWarsProvider({ children }) {
   }, [activeFilters]);
 
   useEffect(() => {
+    setFilters({ column: availableColumns[0], comparison: 'maior que', value: 0 });
+  }, [availableColumns]);
+
+  useEffect(() => {
     const getApi = async () => {
       const apiResults = await fetchApi();
       const filterResults = apiResults.filter((item) => delete item.residents);
