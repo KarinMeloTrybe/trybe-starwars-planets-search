@@ -111,7 +111,7 @@ function Table() {
                 {Object.entries(result).map(([key, value]) => (
                   <td
                     key={ key }
-                    data-testid={ columnsTable === key ? 'planet-name' : key }
+                    data-testid={ key === 'name' ? 'planet-name' : key }
                   >
                     {value}
                   </td>

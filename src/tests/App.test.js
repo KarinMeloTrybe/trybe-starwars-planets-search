@@ -2,11 +2,12 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from '../App';
 import testData from '../../cypress/mocks/testData';
+import userEvent from '@testing-library/user-event';
 
 describe( 'Testar tabela', () => {
   beforeEach(() => {
     global.fetch = jest.fn().mockResolvedValue({
-      json: () => Promise.resolve(testData),
+      json: jest.fn().mockResolvedValue(testData),
     });
   })
 test('Verifica se a tabela contém 13 colunas', () => {
@@ -38,7 +39,21 @@ test('Verifica se a tabela contém 13 colunas', () => {
   expect(column12).toBeInTheDocument();
   expect(column13).toBeInTheDocument();
 });
-test('Verifica se', () => {
+test('Verifica se ao pesquisar um planeta o filtro retorna apenas o resultado esperado', async() => {
   render(<App />);
+  const planets = await screen.findAllByTestId('planet-name');
+  expect(planets).toHaveLength(10);
+  const nameInput = screen.getByTestId('name-filter')
+  expect(nameInput).toBeInTheDocument();
+  userEvent.click(nameInput);
+  userEvent.type(nameInput, 'Alderaan');
+  expect(await screen.findAllByTestId('planet-name')).toHaveLength(1);
+});
+test('Verifica se ao filtrar retorna apenas o resultado esperado', async() => {
+  render(<App />);
+  const columnSelect = screen.getByTestId('column-filter');
+  expect(columnSelect).toBeInTheDocument();
+  userEvent.click(columnSelect);
+  userEvent
 });
 });
