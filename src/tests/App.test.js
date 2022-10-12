@@ -7,3 +7,9 @@ test('I am your test', () => {
   const linkElement = screen.getByText(/Hello, App!/i);
   expect(linkElement).toBeInTheDocument();
 });
+
+test('I am your test', () => {
+  render(<App />);
+  const linkElement = screen.getByText(/Hello, App!/i);
+  expect(linkElement).toBeInTheDocument();
+});
