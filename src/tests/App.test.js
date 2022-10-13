@@ -107,14 +107,27 @@ describe('Testar tabela', () => {
     userEvent.click(buttonFilter);
      await waitFor(()=>{
       const filters = screen.getAllByTestId('filter');
-    expect(filters).toHaveLength(4);
+    expect(filters).toHaveLength(1);
     })
-    const buttonClearOne = screen.getByRole('X');
-    expect(buttonClearOne).toBeInTheDocument();
-    userEvent.click(buttonClearOne);
+    userEvent.selectOptions(columnSelect, within(columnSelect).getByRole('option', {
+      name: 'rotation_period',
+    }))
+     userEvent.selectOptions(comparisonSelect, within(comparisonSelect).getByRole('option', {
+       name: 'igual a'
+     }))
+    userEvent.click(valueInput);
+    userEvent.type(valueInput, '24');
+    userEvent.click(buttonFilter);
+     await waitFor(()=>{
+      const filters = screen.getAllByTestId('filter');
+    expect(filters).toHaveLength(2);
+     })
+    const buttonClearOne = screen.getAllByRole('button', {name: 'X'});
+    expect(buttonClearOne[0]).toBeInTheDocument();
+    userEvent.click(buttonClearOne[0]);
     await waitFor(()=>{
       const filters = screen.getAllByTestId('filter');
-      expect(filters).toHaveLength(5);
+      expect(filters).toHaveLength(1);
     })
  });
 });

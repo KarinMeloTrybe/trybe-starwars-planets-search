@@ -9,7 +9,7 @@ function StarWarsProvider({ children }) {
   const [fixedResults, setFixedResults] = useState([]);
   const [results, setResults] = useState([]);
   const [filterInput, setFilterInput] = useState('');
-  const [filteredPlanets, setFilteredPlanets] = useState(results || []);
+  const [filteredPlanets, setFilteredPlanets] = useState(results);
   const [filters, setFilters] = useState({
     column: 'population',
     comparison: 'maior que',
